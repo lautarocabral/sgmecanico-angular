@@ -2,13 +2,26 @@
     <h1>Rectificados <span class="badge badge-secondary"></span></h1>
 </div>
 <div class="row">
+    <form class="form-inline">
+        <div class="form-group mb-2">
+            <label for="inputPassword2" class="sr-only"></label>
+            <input type="text" class="form-control" id="inputPassword2" placeholder="">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2 ml-2">Buscar</button>
+    </form>
+</div>
+<div class="row">
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Nro de recitificado</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Operario</th>
+                <th scope="col">Motor/es</th>
+                <th scope="col">Insumos</th>
+                <th scope="col">Fecha Ingreso</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Total</th>
                 <th scope="col">Accion</th>
             </tr>
         </thead>
@@ -18,17 +31,88 @@
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
-                <td>
-                    <button class="btn btn-lg" style="background-color:transparent;">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-lg" style="background-color:transparent;">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
-
-                   
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td class="row justify-content-center">
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-success">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+<div class="row justify-content-end">
+    <button class="btn btn-lg btn-default" data-toggle="modal" data-target="#addRectificadoModal" data-whatever="@mdo">
+        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+    </button>
+</div>
+<!-- Add modal -->
+<div class="modal fade" id="addRectificadoModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="cliente">Cliente</label>
+                        <select class="form-control" id="cliente">
+                            <option>Lautaro</option>
+                            <option>Camp</option>
+                            <option>flor</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="operario">Operario</label>
+                        <select class="form-control" id="operario">
+                            <option>Lautaro</option>
+                            <option>Camp</option>
+                            <option>flor</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <select class="form-control" id="estado">
+                            <option>Ingresado</option>
+                            <option>En progreso</option>
+                            <option>Rectificado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nromotor">Nro de motor</label>
+                        <input type="text" class="form-control" id="nromotor" placeholder="000203AbdcD...">
+                    </div>
+                    <div class="row justify-content-end">
+                        <button class="btn btn-lg btn-default">
+                            <i class="fa fa-plus fa-1x" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <input class="form-control" type="text" placeholder="23/08/2023" readonly>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Confimar</button>
+            </div>
+        </div>
+    </div>
 </div>
