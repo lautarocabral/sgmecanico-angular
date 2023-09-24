@@ -9,6 +9,7 @@ import { ModuloOperarioComponent } from './gestion-rectificados/modulo-operario/
 import { UpdateMotorComponent } from './gestion-rectificados/modulo-operario/update-motor/update-motor.component';
 import { PedidoComponent } from './gestion-rectificados/pedido/pedido.component';
 import { AltaPedidoComponent } from './gestion-rectificados/pedido/alta-pedido/alta-pedido.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AltaPedidoComponent } from './gestion-rectificados/pedido/alta-pedido/a
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
