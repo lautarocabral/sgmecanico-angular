@@ -14,7 +14,7 @@
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Nro de recitificado</th>
+                <th scope="col">Nro de rectificado</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Operario</th>
                 <th scope="col">Motor/es</th>
@@ -26,15 +26,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+            <tr *ngFor="let datos of rectificados ; let i=index;">
+                <td>{{datos.id}}</td>
+                <td>{{datos.cliente.nombre}}</td>
+                <td>{{datos.operario.nombre}} {{datos.operario.apellido}}</td>
+                <td>
+                    <div *ngFor="let motor of datos.motores; let j=index;">
+                      {{ motor.marca }}, {{ motor.modelo }}, ({{ motor.fabricacion | date :  "yyyy"}})
+                    </div>
+                  </td>
+                <td>{{datos.insumo.nombre}}</td>
+                <td>{{datos.fecha | date :  "yyyy"}}</td>
+                <td>{{datos.estado.descripcion}}</td>
+                <td>{{datos.total  | currency}}</td>
                 <td class="row justify-content-center">
                     <div class="col-md-3">
                         <button class="btn btn-outline-success">

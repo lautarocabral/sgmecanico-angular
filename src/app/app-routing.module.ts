@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RectificadoComponent } from './gestion-rectificados/rectificado/rectificado.component';
-import { ModuloOperarioComponent } from './gestion-rectificados/modulo-operario/modulo-operario.component';
-import { UpdateMotorComponent } from './gestion-rectificados/modulo-operario/update-motor/update-motor.component';
-import { PedidoComponent } from './gestion-rectificados/pedido/pedido.component';
-import { AltaPedidoComponent } from './gestion-rectificados/pedido/alta-pedido/alta-pedido.component';
+import { RectificadoComponent } from './components/gestion-rectificados/rectificado/rectificado.component';
+import { ModuloOperarioComponent } from './components/gestion-rectificados/modulo-operario/modulo-operario.component';
+import { UpdateMotorComponent } from './components/gestion-rectificados/modulo-operario/update-motor/update-motor.component';
+import { PedidoComponent } from './components/gestion-rectificados/pedido/pedido.component';
+import { AltaPedidoComponent } from './components/gestion-rectificados/pedido/alta-pedido/alta-pedido.component';
 
 const routes: Routes = [
   {
