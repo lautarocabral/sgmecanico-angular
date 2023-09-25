@@ -35,7 +35,11 @@
                       {{ motor.marca }}, {{ motor.modelo }}, ({{ motor.fabricacion | date :  "yyyy"}})
                     </div>
                   </td>
-                <td>{{datos.insumo.nombre}}</td>
+                  <td>
+                    <div *ngFor="let linea of datos.lineaPedidos; let j=index;">
+                      {{ linea.insumo.nombre }}, {{ linea.cantidad }} unidades
+                    </div>
+                  </td>
                 <td>{{datos.fecha | date :  "yyyy"}}</td>
                 <td>{{datos.estado.descripcion}}</td>
                 <td>{{datos.total  | currency}}</td>

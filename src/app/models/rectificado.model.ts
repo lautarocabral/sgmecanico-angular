@@ -14,11 +14,13 @@ export class Rectificado {
       modelo: string;
       fabricacion: string;
     }[];
-    insumo: {
-      nombre: string;
-      stock: number;
-      precio: number;
-    };
+    lineaPedidos: {
+      cantidad: string;
+      insumo: {
+        nombre: string;
+        precio: number;
+      };
+    }[];
     fecha: string;
     estado: {
       descripcion: string;
@@ -43,11 +45,13 @@ export class Rectificado {
           fabricacion: ''
         }
       ];
-      this.insumo = {
-        nombre: '',
-        stock: 0,
-        precio: 0
-      };
+      this.lineaPedidos =[ {
+        cantidad: '',
+        insumo: {
+          nombre: '',
+          precio: 0,
+        }
+      }];
       this.fecha = '';
       this.estado = {
         descripcion: ''

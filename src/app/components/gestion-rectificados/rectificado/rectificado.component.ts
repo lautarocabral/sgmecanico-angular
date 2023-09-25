@@ -11,6 +11,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 export class RectificadoComponent {
 
   rectificados: Rectificado[] = [];
+  // rectificados: any[] = [];
 
 
   constructor(private apiService: ApiService,
@@ -22,14 +23,15 @@ export class RectificadoComponent {
 
   getRectificadosList() {
     try {
-      this.apiService.getAll().subscribe(
-        (response) => {
+      this.apiService.getAll().subscribe({
+        next: (response) => {
+          console.log(response);
           this.rectificados = response;
         },
-        (error) => {
+        error: (error) => {
           // Handle error here
         }
-      );
+      });
     } catch (error) {
 
     }
