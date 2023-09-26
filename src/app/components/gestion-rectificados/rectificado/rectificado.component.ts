@@ -1,7 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Rectificado } from 'src/app/models/rectificado.model';
 import { ApiService } from 'src/app/services/api/api.service';
+import { RectificadosService } from 'src/app/services/rectificado/rectificados.service';
 
 @Component({
   selector: 'app-rectificado',
@@ -11,29 +14,137 @@ import { ApiService } from 'src/app/services/api/api.service';
 export class RectificadoComponent {
 
   rectificados: Rectificado[] = [];
-  // rectificados: any[] = [];
+  clientes: any[] = [];
+  operarios: any[] = [];
+  estados: any[] = [];
+  clienteForm!: FormGroup;
+  curDate = new Date();
 
-
-  constructor(private apiService: ApiService,
-    private route: ActivatedRoute) { }
+  constructor(private rectificadosService: RectificadosService,
+    private route: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.getRectificadosList();
+    this.getClientesList();
+    this.getOperariosList();
+    this.getEstadosList();
+    this.initForm();
+  }
+
+  initForm() {
+    const firstEstadoDescripcion = this.estados[0]?.descripcion || '';
+    this.clienteForm = this.fb.group({
+      cliente: new FormControl(null),
+      estado: new FormControl({ value: firstEstadoDescripcion }),
+      operario: new FormControl(null),
+      motores: this.fb.array([
+        this.fb.group({
+          nroMotor: [''],
+          marca: [''],
+          modelo: [''],
+          fabricacion: [new Date()]
+        })
+      ])
+    });
   }
 
   getRectificadosList() {
     try {
-      this.apiService.getAll().subscribe({
+      this.rectificadosService.getAllRectificados().subscribe({
         next: (response) => {
-          console.log(response);
           this.rectificados = response;
         },
         error: (error) => {
-          // Handle error here
         }
       });
     } catch (error) {
 
     }
   }
+  getClientesList() {
+    try {
+      this.rectificadosService.getAllClientes().subscribe({
+        next: (response) => {
+          this.clientes = response;
+        },
+        error: (error) => {
+        }
+      });
+    } catch (error) {
+
+    }
+  }
+  getOperariosList() {
+    try {
+      this.rectificadosService.getAllOperarios().subscribe({
+        next: (response) => {
+          this.operarios = response;
+        },
+        error: (error) => {
+        }
+      });
+    } catch (error) {
+
+    }
+  }
+  getEstadosList() {
+    try {
+      this.rectificadosService.getAllEstados().subscribe({
+        next: (response) => {
+          this.estados = response;
+        },
+        error: (error) => {
+        }
+      });
+    } catch (error) {
+
+    }
+  }
+  onSubmit() {
+
+    for (let index = 0; index < this.clienteForm.value.motores.length; index++) {
+      const element = this.clienteForm.value.motores[index];
+      element.fabricacion = this.datePipe.transform(element.fabricacion, 'yyyy-MM-dd');
+    }
+
+    console.log(this.clienteForm.value.motores);
+    
+
+    var body = {
+      clienteID: this.clienteForm.value.cliente.id,
+      operarioID: this.clienteForm.value.operario.id,
+      motores: this.clienteForm.value.motores,
+    };
+
+    try {
+      this.rectificadosService.addRectificado(body).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    } catch (error) {
+
+    }
+
+  }
+
+  get motores() {
+    return this.clienteForm.get('motores') as FormArray;
+  }
+
+  addMotor() {
+    if (this.motores.length < 3) {
+      // this.motores.push(this.fb.control(''));
+      this.motores.push(this.fb.group({
+        nroMotor: [''], // Define your form controls here
+        marca: [''],
+        modelo: [''],
+        fabricacion: [new Date()]
+      }));
+    }
+  }
+
 }

@@ -14,12 +14,23 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="col">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+            <tr *ngFor="let datos of rectificados ; let i=index;">
+                <td>{{datos.id}}</td>
+                <td>
+                    <div *ngFor="let motor of datos.motores; let j=index;">
+                        {{ motor.nroMotorId }} - {{ motor.marca }}, {{ motor.modelo }}, ({{ motor.fabricacion | date : "yyyy"}})
+                    </div>
+                </td>
+                <td>
+                    <div *ngFor="let pedido of datos.pedidos; let j=index;">
+                        <div *ngFor="let linea of pedido.lineasDePedido; let j=index;">
+                            {{linea.insumo.nombre}} - ({{pedido.proveedor.nombre}})
+                            {{ linea.insumo.precio }} x {{linea.cantidad}}
+                        </div>
+                    </div>
+                </td>
+                <td>{{datos.fecha | date : "yyyy-MM-dd"}}</td>
+                <td>{{datos.estado.descripcion}}</td>
                 <td>
                     <div class="col-md-3">
                         <!-- <a [routerLink]="['updateMotor']">

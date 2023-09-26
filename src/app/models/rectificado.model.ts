@@ -1,62 +1,79 @@
 export class Rectificado {
-    id: number;
-    cliente: {
-      nombre: string;
+  id: number;
+  cliente: {
+    nombre: string;
+  };
+  operario: {
+    nombre: string;
+    apellido: string;
+    dni: string;
+    fecha: string;
+  };
+  motores: {
+    nroMotorId: string;
+    marca: string;
+    modelo: string;
+    fabricacion: string;
+  }[];
+  pedidos: {
+    fecha: string;
+    proveedor: {
+      nombre: string
     };
-    operario: {
-      nombre: string;
-      apellido: string;
-      dni: string;
-      fecha: string;
-    };
-    motores: {
-      marca: string;
-      modelo: string;
-      fabricacion: string;
-    }[];
-    lineaPedidos: {
-      cantidad: string;
+    lineasDePedido: {
+      cantidad: number;
       insumo: {
         nombre: string;
+        stock: number;
         precio: number;
       };
     }[];
-    fecha: string;
-    estado: {
-      descripcion: string;
+  }[];
+  fecha: string;
+  estado: {
+    descripcion: string;
+  };
+  total: number;
+
+  constructor() {
+    this.id = 0;
+    this.cliente = {
+      nombre: ''
     };
-    total: number;
-  
-    constructor() {
-      this.id = 0;
-      this.cliente = {
+    this.operario = {
+      nombre: '',
+      apellido: '',
+      dni: '',
+      fecha: ''
+    };
+    this.motores = [
+      {
+        nroMotorId: '',
+        marca: '',
+        modelo: '',
+        fabricacion: ''
+      }
+    ];
+    this.pedidos = [{
+      fecha: '',
+      proveedor: {
         nombre: ''
-      };
-      this.operario = {
-        nombre: '',
-        apellido: '',
-        dni: '',
-        fecha: ''
-      };
-      this.motores = [
+      },
+      lineasDePedido: [
         {
-          marca: '',
-          modelo: '',
-          fabricacion: ''
+          cantidad: 0,
+          insumo: {
+            nombre: '',
+            precio: 0,
+            stock: 0
+          }
         }
-      ];
-      this.lineaPedidos =[ {
-        cantidad: '',
-        insumo: {
-          nombre: '',
-          precio: 0,
-        }
-      }];
-      this.fecha = '';
-      this.estado = {
-        descripcion: ''
-      };
-      this.total = 0;
-    }
+      ]
+    }];
+    this.fecha = '';
+    this.estado = {
+      descripcion: ''
+    };
+    this.total = 0;
   }
-  
+}

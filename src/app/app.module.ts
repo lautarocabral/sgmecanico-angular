@@ -12,6 +12,7 @@ import { PedidoComponent } from './components/gestion-rectificados/pedido/pedido
 import { AltaPedidoComponent } from './components/gestion-rectificados/pedido/alta-pedido/alta-pedido.component';
 import { ApiService } from './services/api/api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -20,4 +20,16 @@ export class ApiService {
   delete(body: any): Observable<Rectificado> {
     return this.httpService.delete('Rectificados');
   }
+  //Clientes
+  getClientes(): Observable<[]> {
+    return this.httpService.get('Clientes');
+  }
+  //Operarios
+  getOperarios(): Observable<[]> {
+    return this.httpService.get('Operarios');
+  }
+  //Estados
+  getEstados(): Observable<[]> {
+    return this.httpService.get('Estados');
+  }
 }

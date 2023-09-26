@@ -4,7 +4,8 @@ import { Observable, ObjectUnsubscribedError } from 'rxjs/index';
 import * as _ from 'lodash';
 
 const httpHeaders = new HttpHeaders({
-  'Content-Type': 'application/json',
+  'Content-Type': 'application/json;',
+  'Authorization': 'my-auth-token',
   'Access-Control-Allow-Origin': '*'
 });
 
