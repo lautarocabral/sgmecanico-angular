@@ -14,6 +14,10 @@ import { ApiService } from './services/api/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { LoginComponent } from './components/auth/login/login.component';
+import { GestionEnviosComponent } from './components/gestion-envios/gestion-envios.component';
+import { GestionVentasComponent } from './components/gestion-ventas/gestion-ventas.component';
+import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
+import { GestionGruposComponent } from './components/gestion-grupos/gestion-grupos.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { LoginComponent } from './components/auth/login/login.component';
     UpdateMotorComponent,
     PedidoComponent,
     AltaPedidoComponent,
-    LoginComponent
+    LoginComponent,
+    GestionEnviosComponent,
+    GestionVentasComponent,
+    GestionUsuariosComponent,
+    GestionGruposComponent
   ],
   imports: [
     BrowserModule,

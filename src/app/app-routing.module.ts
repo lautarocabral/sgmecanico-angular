@@ -6,6 +6,8 @@ import { UpdateMotorComponent } from './components/gestion-rectificados/modulo-o
 import { PedidoComponent } from './components/gestion-rectificados/pedido/pedido.component';
 import { AltaPedidoComponent } from './components/gestion-rectificados/pedido/alta-pedido/alta-pedido.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { GestionVentasComponent } from './components/gestion-ventas/gestion-ventas.component';
+import { GestionEnviosComponent } from './components/gestion-envios/gestion-envios.component';
 
 const routes: Routes = [
   {
@@ -16,13 +18,14 @@ const routes: Routes = [
   { path: 'rectificados', component: RectificadoComponent },
   {
     path: 'moduloOperarios', component: ModuloOperarioComponent, children: [
-      
     ]
   },
   { path: 'updateMotor', component: UpdateMotorComponent },
   { path: 'pedidos', component: PedidoComponent },
   { path: 'alta-pedido', component: AltaPedidoComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'ventas', component: GestionVentasComponent },
+  { path: 'envios', component: GestionEnviosComponent }
 ];
 
 @NgModule({
