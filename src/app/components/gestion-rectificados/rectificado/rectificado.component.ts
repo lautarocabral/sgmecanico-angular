@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rectificado } from 'src/app/models/rectificado.model';
 import { ApiService } from 'src/app/services/api/api.service';
 import { RectificadosService } from 'src/app/services/rectificado/rectificados.service';
@@ -21,7 +22,7 @@ export class RectificadoComponent {
   curDate = new Date();
 
   constructor(private rectificadosService: RectificadosService,
-    private route: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe) { }
+    private route: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getRectificadosList();
@@ -30,6 +31,16 @@ export class RectificadoComponent {
     this.getEstadosList();
     this.initForm();
   }
+
+    // Function to open the modal
+    openModal() {
+      this.modalService.open('addRectificadoModal', { centered: true }); // 'addRectificadoModal' is the modal ID
+    }
+  
+    // Function to close the modal
+    closeModal() {
+      this.modalService.dismissAll(); // Close all open modals
+    }
 
   initForm() {
     const firstEstadoDescripcion = this.estados[0]?.descripcion || '';
@@ -101,7 +112,7 @@ export class RectificadoComponent {
     }
   }
   onSubmit() {
-
+    this.openModal();
     for (let index = 0; index < this.clienteForm.value.motores.length; index++) {
       const element = this.clienteForm.value.motores[index];
       element.fabricacion = this.datePipe.transform(element.fabricacion, 'yyyy-MM-dd');
@@ -120,6 +131,8 @@ export class RectificadoComponent {
       this.rectificadosService.addRectificado(body).subscribe({
         next: (response) => {
           console.log(response);
+          this.clienteForm.reset();
+          this.closeModal();
         },
         error: (error) => {
           console.log(error);

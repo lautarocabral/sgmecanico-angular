@@ -13,6 +13,7 @@ import { AltaPedidoComponent } from './components/gestion-rectificados/pedido/al
 import { ApiService } from './services/api/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { LoginComponent } from './components/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DatePipe } from '@angular/common';
     ModuloOperarioComponent,
     UpdateMotorComponent,
     PedidoComponent,
-    AltaPedidoComponent
+    AltaPedidoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

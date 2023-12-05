@@ -5,6 +5,7 @@ import { ModuloOperarioComponent } from './components/gestion-rectificados/modul
 import { UpdateMotorComponent } from './components/gestion-rectificados/modulo-operario/update-motor/update-motor.component';
 import { PedidoComponent } from './components/gestion-rectificados/pedido/pedido.component';
 import { AltaPedidoComponent } from './components/gestion-rectificados/pedido/alta-pedido/alta-pedido.component';
+import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
   },
   { path: 'updateMotor', component: UpdateMotorComponent },
   { path: 'pedidos', component: PedidoComponent },
-  { path: 'alta-pedido', component: AltaPedidoComponent }
+  { path: 'alta-pedido', component: AltaPedidoComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
