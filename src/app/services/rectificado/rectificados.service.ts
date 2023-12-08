@@ -29,6 +29,14 @@ export class RectificadosService {
       })
     );
   }
+  deleteRectificado(id: any): Observable<any> {
+    return this.apiService.delete(id).pipe(
+      catchError((error) => {
+        console.error('Error:', error);
+        return of();
+      })
+    );
+  }
    // Clientes
   getAllClientes(): Observable<Rectificado[]> {
     return this.apiService.getClientes().pipe(

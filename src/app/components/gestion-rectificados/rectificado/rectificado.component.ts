@@ -19,6 +19,7 @@ export class RectificadoComponent {
   operarios: any[] = [];
   estados: any[] = [];
   clienteForm!: FormGroup;
+  editForm!: FormGroup;
   curDate = new Date();
 
   constructor(private rectificadosService: RectificadosService,
@@ -32,15 +33,15 @@ export class RectificadoComponent {
     this.initForm();
   }
 
-    // Function to open the modal
-    openModal() {
-      this.modalService.open('addRectificadoModal', { centered: true }); // 'addRectificadoModal' is the modal ID
-    }
-  
-    // Function to close the modal
-    closeModal() {
-      this.modalService.dismissAll(); // Close all open modals
-    }
+  // Function to open the modal
+  openModal() {
+    this.modalService.open('addRectificadoModal', { centered: true }); // 'addRectificadoModal' is the modal ID
+  }
+
+  // Function to close the modal
+  closeModal() {
+    this.modalService.dismissAll(); // Close all open modals
+  }
 
   initForm() {
     const firstEstadoDescripcion = this.estados[0]?.descripcion || '';
@@ -48,12 +49,27 @@ export class RectificadoComponent {
       cliente: new FormControl(null),
       estado: new FormControl({ value: firstEstadoDescripcion }),
       operario: new FormControl(null),
+      paraEnvio: new FormControl(false),
       motores: this.fb.array([
         this.fb.group({
           nroMotor: [''],
           marca: [''],
           modelo: [''],
-          fabricacion: [new Date()]
+          fabricacion: [new Date()],
+        })
+      ])
+    });
+    this.editForm = this.fb.group({
+      cliente: new FormControl(null),
+      estado: new FormControl(null),
+      operario: new FormControl(null),
+      paraEnvio: new FormControl(false),
+      motores: this.fb.array([
+        this.fb.group({
+          nroMotor: [''],
+          marca: [''],
+          modelo: [''],
+          fabricacion: [new Date()],
         })
       ])
     });
@@ -119,12 +135,13 @@ export class RectificadoComponent {
     }
 
     console.log(this.clienteForm.value.motores);
-    
+
 
     var body = {
       clienteID: this.clienteForm.value.cliente.id,
       operarioID: this.clienteForm.value.operario.id,
       motores: this.clienteForm.value.motores,
+      paraEnvio: this.clienteForm.value.paraEnvio,
     };
 
     try {
@@ -133,6 +150,7 @@ export class RectificadoComponent {
           console.log(response);
           this.clienteForm.reset();
           this.closeModal();
+          this.getRectificadosList();
         },
         error: (error) => {
           console.log(error);
@@ -152,12 +170,42 @@ export class RectificadoComponent {
     if (this.motores.length < 3) {
       // this.motores.push(this.fb.control(''));
       this.motores.push(this.fb.group({
-        nroMotor: [''], // Define your form controls here
+        nroMotor: [''],
         marca: [''],
         modelo: [''],
         fabricacion: [new Date()]
       }));
     }
+  }
+
+  onDelete(id: number) {
+    try {
+      this.rectificadosService.deleteRectificado(id).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.getRectificadosList();
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    } catch (error) {
+
+    }
+  }
+
+  onEdit(datos: any): void {
+    this.editForm.setValue({
+      cliente: datos.cliente.nombre,
+      operario: datos.operario.nombre,
+      paraEnvio: datos.paraEnvio,
+      estado: datos.estado,
+      nroMotor: datos.nroMotor,
+      marca: datos.marca,
+      modelo: datos.modelos,
+      fabricacion: datos.fabricacion
+    });
+
   }
 
 }

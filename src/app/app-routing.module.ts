@@ -8,6 +8,8 @@ import { AltaPedidoComponent } from './components/gestion-rectificados/pedido/al
 import { LoginComponent } from './components/auth/login/login.component';
 import { GestionVentasComponent } from './components/gestion-ventas/gestion-ventas.component';
 import { GestionEnviosComponent } from './components/gestion-envios/gestion-envios.component';
+import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
+import { GestionGruposComponent } from './components/gestion-grupos/gestion-grupos.component';
 
 const routes: Routes = [
   {
@@ -25,7 +27,10 @@ const routes: Routes = [
   { path: 'alta-pedido', component: AltaPedidoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'ventas', component: GestionVentasComponent },
-  { path: 'envios', component: GestionEnviosComponent }
+  { path: 'envios', component: GestionEnviosComponent },
+  { path: 'usuarios', component: GestionUsuariosComponent },
+  { path: 'grupos', component: GestionGruposComponent }
+
 ];
 
 @NgModule({

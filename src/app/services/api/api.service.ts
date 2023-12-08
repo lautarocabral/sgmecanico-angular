@@ -17,9 +17,9 @@ export class ApiService {
   add(body: any): Observable<Rectificado> {
     return this.httpService.post('Rectificados', body);
   }
-  delete(body: any): Observable<Rectificado> {
-    return this.httpService.delete('Rectificados');
-  }
+  delete(id: any): Observable<any> {
+    return this.httpService.delete(`Rectificados/${id}`);
+}
   //Clientes
   getClientes(): Observable<[]> {
     return this.httpService.get('Clientes');

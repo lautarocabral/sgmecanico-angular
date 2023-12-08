@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./gestion-grupos.component.scss']
 })
 export class GestionGruposComponent {
-
+  grupos: any[] = [];
 }

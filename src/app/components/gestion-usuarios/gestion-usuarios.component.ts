@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./gestion-usuarios.component.scss']
 })
 export class GestionUsuariosComponent {
+  usuarios: any[] = [];
 
 }
