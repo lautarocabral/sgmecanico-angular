@@ -30,6 +30,7 @@ export class Rectificado {
     }[];
   }[];
   fecha: string;
+  paraEnvio: boolean;
   estado: {
     descripcion: string;
   };
@@ -71,6 +72,7 @@ export class Rectificado {
       ]
     }];
     this.fecha = '';
+    this.paraEnvio = false;
     this.estado = {
       descripcion: ''
     };

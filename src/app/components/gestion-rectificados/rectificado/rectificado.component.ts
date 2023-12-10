@@ -1,19 +1,19 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rectificado } from 'src/app/models/rectificado.model';
 import { ApiService } from 'src/app/services/api/api.service';
 import { RectificadosService } from 'src/app/services/rectificado/rectificados.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-rectificado',
   templateUrl: './rectificado.component.html',
-  styleUrls: ['./rectificado.component.scss']
+  styleUrls: ['./rectificado.component.scss'],
 })
 export class RectificadoComponent {
-
   rectificados: Rectificado[] = [];
   clientes: any[] = [];
   operarios: any[] = [];
@@ -21,9 +21,15 @@ export class RectificadoComponent {
   clienteForm!: FormGroup;
   editForm!: FormGroup;
   curDate = new Date();
+  selectedRectificado: any;
 
-  constructor(private rectificadosService: RectificadosService,
-    private route: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe, private modalService: NgbModal) { }
+  constructor(
+    private rectificadosService: RectificadosService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private datePipe: DatePipe,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.getRectificadosList();
@@ -56,8 +62,8 @@ export class RectificadoComponent {
           marca: [''],
           modelo: [''],
           fabricacion: [new Date()],
-        })
-      ])
+        }),
+      ]),
     });
     this.editForm = this.fb.group({
       cliente: new FormControl(null),
@@ -70,8 +76,8 @@ export class RectificadoComponent {
           marca: [''],
           modelo: [''],
           fabricacion: [new Date()],
-        })
-      ])
+        }),
+      ]),
     });
   }
 
@@ -81,12 +87,9 @@ export class RectificadoComponent {
         next: (response) => {
           this.rectificados = response;
         },
-        error: (error) => {
-        }
+        error: (error) => {},
       });
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   getClientesList() {
     try {
@@ -94,12 +97,9 @@ export class RectificadoComponent {
         next: (response) => {
           this.clientes = response;
         },
-        error: (error) => {
-        }
+        error: (error) => {},
       });
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   getOperariosList() {
     try {
@@ -107,12 +107,9 @@ export class RectificadoComponent {
         next: (response) => {
           this.operarios = response;
         },
-        error: (error) => {
-        }
+        error: (error) => {},
       });
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   getEstadosList() {
     try {
@@ -120,22 +117,25 @@ export class RectificadoComponent {
         next: (response) => {
           this.estados = response;
         },
-        error: (error) => {
-        }
+        error: (error) => {},
       });
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   onSubmit() {
     this.openModal();
-    for (let index = 0; index < this.clienteForm.value.motores.length; index++) {
+    for (
+      let index = 0;
+      index < this.clienteForm.value.motores.length;
+      index++
+    ) {
       const element = this.clienteForm.value.motores[index];
-      element.fabricacion = this.datePipe.transform(element.fabricacion, 'yyyy-MM-dd');
+      element.fabricacion = this.datePipe.transform(
+        element.fabricacion,
+        'yyyy-MM-dd'
+      );
     }
 
     console.log(this.clienteForm.value.motores);
-
 
     var body = {
       clienteID: this.clienteForm.value.cliente.id,
@@ -154,12 +154,9 @@ export class RectificadoComponent {
         },
         error: (error) => {
           console.log(error);
-        }
+        },
       });
-    } catch (error) {
-
-    }
-
+    } catch (error) {}
   }
 
   get motores() {
@@ -169,12 +166,14 @@ export class RectificadoComponent {
   addMotor() {
     if (this.motores.length < 3) {
       // this.motores.push(this.fb.control(''));
-      this.motores.push(this.fb.group({
-        nroMotor: [''],
-        marca: [''],
-        modelo: [''],
-        fabricacion: [new Date()]
-      }));
+      this.motores.push(
+        this.fb.group({
+          nroMotor: [''],
+          marca: [''],
+          modelo: [''],
+          fabricacion: [new Date()],
+        })
+      );
     }
   }
 
@@ -187,25 +186,34 @@ export class RectificadoComponent {
         },
         error: (error) => {
           console.log(error);
-        }
+        },
       });
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 
   onEdit(datos: any): void {
-    this.editForm.setValue({
-      cliente: datos.cliente.nombre,
-      operario: datos.operario.nombre,
-      paraEnvio: datos.paraEnvio,
-      estado: datos.estado,
-      nroMotor: datos.nroMotor,
-      marca: datos.marca,
-      modelo: datos.modelos,
-      fabricacion: datos.fabricacion
+    this.selectedRectificado = datos;
+    // Clear the form array
+    const motoresArray = this.editForm.get('motores') as FormArray;
+    motoresArray.clear();
+
+    // Add a group for each motor
+    datos.motores.forEach((motor: any) => {
+      motoresArray.push(
+        this.fb.group({
+          nroMotor: [motor.nroMotor],
+          marca: [motor.marca],
+          modelo: [motor.modelo],
+          fabricacion: [new Date(motor.fabricacion)],
+        })
+      );
     });
 
+    this.editForm.patchValue({
+      cliente: this.clientes.find((c) => c.id === datos.cliente.id),
+      operario: this.operarios.find((c) => c.id === datos.operario.id),
+      paraEnvio: datos.paraEnvio,
+      estado: this.estados.find((c) => c.id === datos.estado.id),
+    });
   }
-
 }
